@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PromedioTresGrupos
 {
@@ -32,19 +33,20 @@ namespace PromedioTresGrupos
     class Program
     {
         public static void ShowMultiGroupGrades(double[][] multiGroupGrades) {
-            int controlIndex;
+            int controlIndex, lastIndexInGroup;
             for (int idx = 0; idx < multiGroupGrades.Length; idx++) {
                 Console.WriteLine($"--Calificaciones del grupo {idx + 1}: ");
                 controlIndex = -1;
+                lastIndexInGroup = multiGroupGrades[idx].Length - 1;
                 foreach (double grade in multiGroupGrades[idx]) {
                     controlIndex++;
-                    if (controlIndex != multiGroupGrades[idx].Length - 1) {
+                    if (controlIndex != lastIndexInGroup) {
                         //Console.Write(grade + ", ");
-                        Console.Write("{0:f2}{1}", grade, ", ");
+                        Console.Write("[{0}]: {1:f2}{2}", controlIndex, grade, ", ");
                     }
                     else {
                         //Console.Write(grade);
-                        Console.Write("{0:f2}", grade);
+                        Console.Write("[{0}]: {1:f2}", controlIndex, grade);
                     }
                     
                 }
@@ -80,9 +82,9 @@ namespace PromedioTresGrupos
 
             foreach (double promedio in promedios) {
                 idxTmp++;
-                Console.WriteLine($"Promedio del GRUPO {idxTmp}: {promedio}");
+                Console.WriteLine("Promedio del GRUPO {0}: {1:f2}", idxTmp, promedio);
             }
-            Console.WriteLine($"Promedio GLOBAL (de los 3 Grupos): {promedioGlobal}");
+            Console.WriteLine("Promedio GLOBAL (de los 3 Grupos): {0:f2}", promedioGlobal);
 
         }
         static void Main(string[] args)
@@ -121,6 +123,10 @@ namespace PromedioTresGrupos
                 Console.Write("\n\t¿Desea calcular el promedio de OTROS 3 Grupos? [y/n]: ");
                 continueP = Console.ReadKey().KeyChar;
             } while (Char.ToLower(continueP).Equals('y'));
+
+            Console.WriteLine("\n\n\tHasta la próxima, gracias por utilizar Randomizer v1.0 by EEC Team.");
+            Thread.Sleep(1600);
+
         }
     }
 }
